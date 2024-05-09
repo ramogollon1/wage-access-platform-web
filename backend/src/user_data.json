@@ -1,0 +1,43 @@
+{
+    "employeeWageData": [
+        {
+            "employeeID": "E01",
+            "totalEarnedWages": 1200,
+            "currency": "USD"
+        },
+        {
+            "employeeID": "E02",
+            "totalEarnedWages": 9500,
+            "currency": "ARS"
+        },
+        {
+            "employeeID": "E03",
+            "totalEarnedWages": 800,
+            "currency": "USD"
+        }
+    ],
+    "currencyRates": {
+        "USD_ARS": 100,
+        "ARS_USD": 0.01
+    },
+    "wageAccessRequests": [
+        {
+            "requestID": "R01",
+            "employeeID": "E01",
+            "requestedAmount": 200,
+            "requestedCurrency": "USD"
+        },
+        {
+            "requestID": "R02",
+            "employeeID": "E02",
+            "requestedAmount": 1000,
+            "requestedCurrency": "ARS"
+        },
+        {
+            "requestID": "R03",
+            "employeeID": "E03",
+            "requestedAmount": 100,
+            "requestedCurrency": "USD"
+        }
+    ]
+}

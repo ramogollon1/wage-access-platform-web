@@ -2,10 +2,12 @@
 FROM node:18 AS BUILD_IMAGE
 
 # Establece el directorio de trabajo en /app
-WORKDIR /app
+WORKDIR /app/backend
 
 # Copia el package.json y el package-lock.json al directorio de trabajo
 COPY package*.json ./
+
+COPY src/user_data.json /app/backend/user_data.json
 
 # Instala las dependencias del proyecto
 RUN npm install
