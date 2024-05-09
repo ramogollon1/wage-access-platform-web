@@ -43,3 +43,9 @@ Wage access platform that enables employees to request early access to earned wa
 - Set environment variables with sensitivity data
 
 ### Preview 📷
+
+![scheme model](preview.jpg)
+
+### Scheme Model 📷
+
+![scheme model](scheme-model.jpg)
