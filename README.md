@@ -44,7 +44,7 @@ Wage access platform that enables employees to request early access to earned wa
 
 ### Preview 📷
 
-![scheme model](preview.jpg)
+![scheme model](https://github.com/ramogollon1/wage-access-platform-web/blob/main/preview.png)
 
 ### Scheme Model 📷
 
