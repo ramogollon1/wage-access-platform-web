@@ -8,10 +8,7 @@ export async function getBalance(req: Request, res: Response) {
   try {
     const userID = req.query.userId as string;
 
-    console.log("User ID:", userID);
-
     if (!preRegisteredUsers.includes(userID)) {
-      console.log("Unauthorized user");
       return res.status(401).json({ error: "Unauthorized" });
     }
 
@@ -23,14 +20,10 @@ export async function getBalance(req: Request, res: Response) {
     const employeeData = employeeDataResult.rows[0];
     let availableBalance = parseFloat(employeeData.total_earned_wages);
 
-    console.log("Initial available balance:", availableBalance);
-
     const requestsResult = await pool.query<WageAccessRequest>(
       "SELECT requested_amount, requested_currency FROM wage_access_requests WHERE employee_id = $1",
       [userID]
     );
-
-    console.log("Requests:", requestsResult.rows);
 
     requestsResult.rows.forEach((request: WageAccessRequest) => {
       const requestAmount = convertCurrency(
@@ -39,16 +32,12 @@ export async function getBalance(req: Request, res: Response) {
         employeeData.currency
       );
 
-      console.log("Request amount:", requestAmount);
-
       availableBalance -= requestAmount;
     });
 
     if (availableBalance < 0) {
       throw new Error("Negative balance detected");
     }
-
-    console.log("Final available balance:", availableBalance);
 
     res.json({ availableBalance, currency: employeeData.currency });
   } catch (error) {

@@ -3,10 +3,7 @@ export function convertCurrency(
   fromCurrency: string,
   toCurrency: string
 ): number {
-  console.log("Converting currency:", { amount, fromCurrency, toCurrency });
-
   if (fromCurrency === toCurrency) {
-    console.log("Same currency. No need to convert.");
     return amount;
   }
 
@@ -22,11 +19,7 @@ export function convertCurrency(
     return usdAmount * rate;
   }
 
-  console.log("Conversion rate:", rate);
-
   const convertedAmount = amount * rate;
-
-  console.log("Converted amount:", convertedAmount);
 
   return convertedAmount;
 }
@@ -51,8 +44,6 @@ export function getCurrencyRate(
 
   const key = `${fromCurrency}_${toCurrency}`;
   const rate = conversionRates[key] || 1;
-
-  console.log("Currency rate:", rate);
 
   return rate;
 }

@@ -14,9 +14,8 @@ const Home = () => {
   };
 
   return (
-    <>
-      <h1 className="title">Request your early salary</h1>
-      <div className="container">
+    <div className="container">
+      <div className="cardWrapper">
         <AvailableBalance
           userID={DEFAULT_USER_ID}
           refreshBalances={refreshBalances}
@@ -29,7 +28,7 @@ const Home = () => {
           setRequestStatus={setRequestStatus}
         />
       </div>
-    </>
+    </div>
   );
 };
 

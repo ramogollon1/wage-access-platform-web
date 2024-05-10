@@ -56,8 +56,6 @@ export async function seedDatabaseWithUsers() {
     `;
 
     await pool.query(insertWageAccessRequestsQuery);
-
-    console.log("Database seeded successfully");
   } catch (error) {
     console.error("Error seeding database:", error);
   }

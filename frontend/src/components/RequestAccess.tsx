@@ -29,32 +29,38 @@ const RequestAccess = ({
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
     setIsloading(true);
-    try {
-      await axios
-        .post(
-          `${SERVER_URL}/request`,
-          {
-            userID: storedUserId ?? userID,
-            requestedAmount: parseInt(amount),
-            requestedCurrency: currency,
+
+    await axios
+      .post(
+        `${SERVER_URL}/request`,
+        {
+          userID: storedUserId ?? userID,
+          requestedAmount: parseInt(amount),
+          requestedCurrency: currency,
+        },
+        {
+          headers: {
+            UserID: userID,
           },
-          {
-            headers: {
-              UserID: userID,
-            },
+        }
+      )
+      .then(() => {
+        setAmount("");
+        onSucceed();
+        setIsloading(false);
+        setRequestStatus(REQUEST_STATUS.SUCCESS);
+      })
+      .catch((error: unknown) => {
+        setAmount("");
+        setIsloading(false);
+        if (error instanceof Error) {
+          if (error.message === "Network Error") {
+            console.log("Error de red: el servidor no está disponible");
+            return;
           }
-        )
-        .then(() => {
-          setAmount("");
-          onSucceed();
-          setIsloading(false);
-          setRequestStatus(REQUEST_STATUS.SUCCESS);
-        });
-    } catch (error) {
-      setIsloading(false);
-      setRequestStatus(REQUEST_STATUS.ERROR);
-      console.error("Error sending request:", error);
-    }
+        }
+        setRequestStatus(REQUEST_STATUS.ERROR);
+      });
   };
 
   const handleAmountChange = (e: ChangeEvent<HTMLInputElement>) => {

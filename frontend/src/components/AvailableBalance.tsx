@@ -33,9 +33,15 @@ const AvailableBalance = ({
         );
         setBalanceInfo(response.data);
         setRequestStatus(REQUEST_STATUS.SUCCESS);
-      } catch (error) {
-        console.error("Error fetching balance:", error);
-        setRequestStatus(REQUEST_STATUS.ERROR);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          if (error.message === "Network Error") {
+            console.log("Error de red: el servidor no está disponible");
+            return;
+          }
+          console.error("Error fetching balance:", error);
+          setRequestStatus(REQUEST_STATUS.ERROR);
+        }
       }
     };
 
@@ -50,8 +56,7 @@ const AvailableBalance = ({
   };
 
   return (
-    <div>
-      <h2>Available Balance</h2>
+    <>
       <div className="employeeInfoContainer">
         <label>Select your employee ID</label>
         <select
@@ -64,18 +69,15 @@ const AvailableBalance = ({
           <option value="E03">E03</option>
         </select>
       </div>
-      {balanceInfo ? (
-        <label>
-          Total Earned Wages: {balanceInfo.availableBalance}{" "}
-          {balanceInfo.currency}
-          {requestStatus === REQUEST_STATUS.ERROR && (
-            <p className="messageError">Insufficient balance</p>
-          )}
-        </label>
-      ) : (
-        <p className="loader">Loading balance...</p>
-      )}
-    </div>
+      <h2>Available Balance</h2>
+      <label>
+        Total Earned Wages: {balanceInfo?.availableBalance ?? 0}{" "}
+        {balanceInfo?.currency ?? ""}
+        {requestStatus === REQUEST_STATUS.ERROR && (
+          <p className="messageError">Insufficient balance</p>
+        )}
+      </label>
+    </>
   );
 };
 

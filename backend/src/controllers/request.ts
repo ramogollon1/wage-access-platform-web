@@ -20,7 +20,6 @@ export async function validateUser(
     });
   }
 
-  console.log("User ID " + userID + " has been validated successfully");
   next();
 }
 
@@ -56,10 +55,6 @@ async function validateBalance(
     const { total_earned_wages: availableBalance, currency: employeeCurrency } =
       balanceResult.rows[0];
 
-    console.log(
-      "Available balance for user ID " + userId + ": " + availableBalance
-    );
-
     let requiredAmount = requestedAmount;
 
     if (requestedCurrency !== employeeCurrency) {
@@ -67,9 +62,6 @@ async function validateBalance(
         Math.abs(requestedAmount),
         requestedCurrency,
         employeeCurrency
-      );
-      console.log(
-        "Converted amount for user ID " + userId + ": " + requiredAmount
       );
     }
 
@@ -91,22 +83,12 @@ export async function submitRequest(req: Request, res: Response) {
   try {
     const { userID, requestedAmount, requestedCurrency } = req.body || {};
 
-    console.log("Received request:", {
-      userID,
-      requestedAmount,
-      requestedCurrency,
-    });
-
     await validateUser(req, res, () => {});
 
     const updatedBalance = await validateBalance(
       userID,
       requestedAmount,
       requestedCurrency
-    );
-
-    console.log(
-      "Updated balance for user ID " + userID + ": " + updatedBalance
     );
 
     client = await pool.connect();
@@ -118,8 +100,6 @@ export async function submitRequest(req: Request, res: Response) {
       });
     }
 
-    console.log("Balance is sufficient for the request");
-
     await client.query("BEGIN");
 
     const updateBalanceQuery = `
@@ -128,8 +108,6 @@ export async function submitRequest(req: Request, res: Response) {
       WHERE employee_id = $2;
     `;
     await client.query(updateBalanceQuery, [requestedAmount, userID]);
-
-    console.log("Balance updated successfully");
 
     await client.query("COMMIT");
 
