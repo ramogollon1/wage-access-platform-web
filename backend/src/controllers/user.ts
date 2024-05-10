@@ -1,7 +1,4 @@
 import { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
-import fs from "fs";
-import path from "path";
 import pool from "../db";
 
 export async function getUsers(req: Request, res: Response) {

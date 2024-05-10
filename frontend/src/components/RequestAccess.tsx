@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEventHandler, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  FormEventHandler,
+  SetStateAction,
+  useState,
+} from "react";
 import axios from "axios";
 import {
   DEFAULT_CURRENCY,
@@ -12,7 +18,7 @@ export type StatusType = (typeof REQUEST_STATUS)[keyof typeof REQUEST_STATUS];
 type RequestAccessType = {
   userID: string;
   onSucceed: () => void;
-  setRequestStatus: React.Dispatch<React.SetStateAction<StatusType | null>>;
+  setRequestStatus: Dispatch<SetStateAction<StatusType | null>>;
 };
 
 const RequestAccess = ({
@@ -53,12 +59,7 @@ const RequestAccess = ({
       .catch((error: unknown) => {
         setAmount("");
         setIsloading(false);
-        if (error instanceof Error) {
-          if (error.message === "Network Error") {
-            console.log("Error de red: el servidor no está disponible");
-            return;
-          }
-        }
+        if (error instanceof Error && error.message === "Network Error") return;
         setRequestStatus(REQUEST_STATUS.ERROR);
       });
   };

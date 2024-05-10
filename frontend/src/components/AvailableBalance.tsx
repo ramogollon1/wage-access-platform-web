@@ -1,4 +1,10 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import axios from "axios";
 import { REQUEST_STATUS, SERVER_URL } from "../../utils/constants";
 import { StatusType } from "./RequestAccess";
@@ -7,7 +13,7 @@ type AvailableBalanceType = {
   userID: string;
   refreshBalances: boolean;
   requestStatus: StatusType | null;
-  setRequestStatus: React.Dispatch<React.SetStateAction<StatusType | null>>;
+  setRequestStatus: Dispatch<SetStateAction<StatusType | null>>;
 };
 
 type InfoBalanceType = {
@@ -34,14 +40,9 @@ const AvailableBalance = ({
         setBalanceInfo(response.data);
         setRequestStatus(REQUEST_STATUS.SUCCESS);
       } catch (error: unknown) {
-        if (error instanceof Error) {
-          if (error.message === "Network Error") {
-            console.log("Error de red: el servidor no está disponible");
-            return;
-          }
-          console.error("Error fetching balance:", error);
-          setRequestStatus(REQUEST_STATUS.ERROR);
-        }
+        if (error instanceof Error && error.message === "Network Error") return;
+        console.error("Error fetching balance:", error);
+        setRequestStatus(REQUEST_STATUS.ERROR);
       }
     };
 

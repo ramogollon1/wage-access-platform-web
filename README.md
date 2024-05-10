@@ -4,33 +4,50 @@
 
 Wage access platform that enables employees to request early access to earned wages. This challenge covers creating a backend service to process these requests, a frontend interface for user interactions, and basic deployment using Docker.
 
-### Requirements ⚙️
+## Before you begin ⚙️
+
+Before starting, ensure you have the following technologies installed:
 
 - Node.js (v18 or later)
 - Npm
 - PostgreSQL
 - Docker installed and running
 
-### Run project 🏃🏻‍♂️
+## Commands to start
 
-`docker-compose up frontend backend db`
+Run the following command from the root directory of the project:
+
+### Prepare project to start 🍝
+
+`npm run prepare`
+
+### Run the project 🏃🏻‍♂️
+
+`npm run start`
+
+## Other commands
+
+### Clean Project 🧹
+
+`npm run docker-clean`
 
 ### Run only frontend App 🖥️
 
-`cd frontend && npm run dev` it will run on http://localhost:8080
+`npm run start-front` it will run on http://localhost:8080
 
 ### Run only backend App 🎒
 
-`cd backend && npm run start` it will run on http://localhost:3000
+`npm run start-backend` it will run on http://localhost:3000
 
-### Run local Database 💾
+## Preview 📷
 
-- Create a database named wage_access_platform.
-- Configure the database credentials in the backend/src/db.ts file.
+![scheme model](https://github.com/ramogollon1/wage-access-platform-web/blob/main/preview.png)
 
-### Brief explanation of solution.
+## Scheme Model 📷
 
-### Future features 🚀
+![scheme model](https://github.com/ramogollon1/wage-access-platform-web/blob/main/scheme-model.png)
+
+## Future features 🚀
 
 - Create registration flow with JWT
 - Separate style by components
@@ -41,11 +58,3 @@ Wage access platform that enables employees to request early access to earned wa
 - Add another type of conversion of balance more optimized.
 - Improve the security of the database
 - Set environment variables with sensitivity data
-
-### Preview 📷
-
-![scheme model](https://github.com/ramogollon1/wage-access-platform-web/blob/main/preview.png)
-
-### Scheme Model 📷
-
-![scheme model](https://github.com/ramogollon1/wage-access-platform-web/blob/main/scheme-model.png)
