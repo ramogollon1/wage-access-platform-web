@@ -1,0 +1,15 @@
+{
+  "name": "wage-access-platform-web",
+  "version": "1.0.0",
+  "description": "Wage access platform that enables employees to request early access to earned wages.",
+  "main": "index.js",
+  "scripts": {
+    "prepare": "cd frontend && npm i && cd .. && cd backend && npm i && cd ..",
+    "start": "docker-compose up frontend backend db",
+    "start-front": "cd frontend && npm run dev",
+    "start-back": "cd frontend && npm run dev",
+    "docker-clean": "docker-compose down -v --rmi all --remove-orphans backend frontend db"
+  },
+  "author": "",
+  "license": "ISC"
+}
